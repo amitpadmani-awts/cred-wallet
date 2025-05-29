@@ -1,10 +1,24 @@
 import { Button, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export default function ScannerScreen() {
-        const [permission, requestPermission] = useCameraPermissions();
+    const [permission, requestPermission] = useCameraPermissions();
+    const [isScanned, setIsScanned] = useState(false)
+
+    const onBarcodeScanned = (data: string) => {
+        if(!isScanned) {
+            setIsScanned(true)
+            console.log('DATA = ', data)
+        }
+
+        setTimeout(() => {
+            setIsScanned(false)
+        }, 5000);
+
+    }
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -24,7 +38,12 @@ export default function ScannerScreen() {
     }
 
     return (
-        <CameraView style={{flex: 1}} />
+        <CameraView 
+            barcodeScannerSettings={{
+                barcodeTypes: ["qr"],
+            }}
+            onBarcodeScanned={(result)=> onBarcodeScanned(result.data)}
+            style={{flex: 1}} />
     )
 }
 
