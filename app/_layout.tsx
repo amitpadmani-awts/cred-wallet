@@ -24,6 +24,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name='onboardingscreen' options={{headerShown: false}} />
           <Stack.Screen name='setwalletping' options={{headerShown: false}} />
+          <Stack.Screen name='scannerscreen' options={{title: 'QR Scanner'}} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
