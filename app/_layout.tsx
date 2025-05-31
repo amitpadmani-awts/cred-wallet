@@ -26,6 +26,9 @@ export default function RootLayout() {
           <Stack.Screen name='setwalletping' options={{headerShown: false}} />
           <Stack.Screen name='scannerscreen' options={{title: 'QR Scanner'}} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="credentialOffer" options={{ headerShown: false }} />
+          <Stack.Screen name="proofRequest" options={{ headerShown: false }} />
+          <Stack.Screen name="credentialDetail"/>
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
