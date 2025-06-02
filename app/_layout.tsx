@@ -1,3 +1,6 @@
+import '@ethersproject/shims';
+import 'react-native-get-random-values';
+
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
