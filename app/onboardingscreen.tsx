@@ -7,8 +7,8 @@ export default function OnboardingScreen() {
     return (
         <SafeAreaView className='flex-1 bg-white'>
             <Onboarding
-                onDone={()=> router.push('/setwalletpin')}
-                onSkip={()=> router.push('/setwalletpin')}
+                onDone={()=> router.push('/setWalletPin')}
+                onSkip={()=> router.push('/setWalletPin')}
                 pages={[
                     {
                         backgroundColor: '#fff',
