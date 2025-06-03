@@ -61,9 +61,9 @@ source ~/.zshrc
    yarn
    ```
 
-### 2. Start the app
+### 2. Start the app (connect your android device and hit below command)
 
    ```bash
-   yarn run start
+   yarn run android
    ```
 
