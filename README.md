@@ -66,4 +66,3 @@ source ~/.zshrc
    ```bash
    yarn run android
    ```
-
