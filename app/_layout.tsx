@@ -1,5 +1,8 @@
 import '@ethersproject/shims';
+import 'fast-text-encoding';
+import 'react-native-gesture-handler';
 import 'react-native-get-random-values';
+import 'react-native-reanimated';
 
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
@@ -7,7 +10,6 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -26,7 +28,7 @@ export default function RootLayout() {
     <GluestackUIProvider mode="light"><ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name='onboardingscreen' options={{headerShown: false}} />
-          <Stack.Screen name='setwalletping' options={{headerShown: false}} />
+          <Stack.Screen name='setwalletpin' options={{headerShown: false}} />
           <Stack.Screen name='scannerscreen' options={{title: 'QR Scanner'}} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="credentialOffer" options={{ headerShown: false }} />

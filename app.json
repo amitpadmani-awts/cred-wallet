@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "credwallet",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.credwallet"
@@ -44,6 +43,18 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26,
+            "compileSdkVersion": 35,
+            "useLegacyPackaging": true,
+            "extraMavenRepos": ["https://s01.oss.sonatype.org/content/repositories/snapshots/"],
+            "kotlinVersion": "2.0.21"
+          }
         }
       ]
     ],
