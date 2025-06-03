@@ -1,12 +1,15 @@
+import 'fast-text-encoding';
+import 'react-native-gesture-handler';
+import 'react-native-get-random-values';
+import 'react-native-reanimated';
+
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { DarkTheme, DefaultTheme, NavigationContainer, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -15,23 +18,26 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 
   return (
-    <GluestackUIProvider mode="light"><ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name='onboardingscreen' options={{headerShown: false}} />
-          <Stack.Screen name='setwalletping' options={{headerShown: false}} />
-          <Stack.Screen name='scannerscreen' options={{title: 'QR Scanner'}} />
+    <GluestackUIProvider mode="light">
+      <NavigationContainer independent={true}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack initialRouteName="onboardingScreen">
+          <Stack.Screen name='onboardingScreen' options={{ headerShown: false }} />
+          <Stack.Screen name='setWalletPin' options={{ headerShown: false }} />
+          <Stack.Screen name='scannerScreen' options={{ title: 'QR Scanner' }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="credentialOffer" options={{ headerShown: false }} />
           <Stack.Screen name="proofRequest" options={{ headerShown: false }} />
-          <Stack.Screen name="credentialDetail"/>
+          <Stack.Screen name="credentialDetail" />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
-      </ThemeProvider></GluestackUIProvider>
+      </ThemeProvider>
+      </NavigationContainer>
+    </GluestackUIProvider>
   );
 }

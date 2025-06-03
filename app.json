@@ -1,22 +1,26 @@
 {
   "expo": {
     "name": "Cred Wallet",
-    "slug": "Cred Wallet",
+    "slug": "cred-wallet",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "credwallet",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.credwallet"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/splash-icon.png"
       },
       "edgeToEdgeEnabled": false,
-      "package": "com.anonymous.credwallet"
+      "package": "com.anonymous.credwallet",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -40,10 +44,28 @@
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26,
+            "compileSdkVersion": 35,
+            "useLegacyPackaging": true,
+            "extraMavenRepos": ["https://s01.oss.sonatype.org/content/repositories/snapshots/"],
+            "kotlinVersion": "2.0.21"
+          }
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f811589d-1a3f-4b15-bada-c1f6cf345189"
+      }
     }
   }
 }
