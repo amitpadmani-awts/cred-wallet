@@ -1,50 +1,69 @@
-# Welcome to your Expo app 👋
+# Welcome to Cred wallet app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Environment Setup
+
+This guide helps you set up the required dependencies to run the project locally on macOS.
+
+---
+
+## ✅ Prerequisites
+
+Ensure you have [Homebrew](https://brew.sh/) installed on your system. Then follow the steps below:
+
+---
+
+### 1. Install Watchman
+
+[Watchman](https://facebook.github.io/watchman/) is a tool developed by Facebook for watching changes in the filesystem.
+
+```
+brew install watchman
+````
+
+### 2. Install Java (Azul Zulu JDK 17)
+Expo and some native build tools require Java. Install the Azul Zulu JDK 17 version:
+```
+brew install --cask zulu@17
+```
+
+### 3. Set JAVA_HOME Environment Variable
+After installing Zulu JDK, configure the JAVA_HOME environment variable:
+
+If using Bash:
+Add this line to your ~/.bash_profile:
+
+```
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+```
+
+Then reload the profile:
+```
+source ~/.bash_profile
+```
+
+If using Zsh:
+Add this line to your ~/.zshrc:
+```
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+```
+
+Then reload the profile:
+```
+source ~/.zshrc
+```
+
 
 ## Get started
 
-1. Install dependencies
+### 1. Install dependencies
 
    ```bash
-   npm install
+   yarn
    ```
 
-2. Start the app
+### 2. Start the app
 
    ```bash
-   npx expo start
+   yarn run start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

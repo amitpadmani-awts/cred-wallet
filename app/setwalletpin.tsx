@@ -2,15 +2,15 @@ import { Button, ButtonText } from "@/components/ui/button"
 import { Input, InputField } from "@/components/ui/input"
 import { Text } from "@/components/ui/text"
 import { Toast, ToastDescription, ToastTitle, useToast } from '@/components/ui/toast'
-import { ConsoleLogger, getAgentModules, InitConfig, initializeAgent, LogLevel, MediatorPickupStrategy } from '@credebl/ssi-mobile'
+import { ConsoleLogger, InitConfig, LogLevel } from '@credebl/ssi-mobile'
 import { router } from "expo-router"
 import { useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 
-export default function SetWalletPin() {
+export default function SetWalletPinScreen() {
     const [pin, setPin] = useState('')
     const [confirmPin, setConfirmPin] = useState('')
-      const toast = useToast()
+    const toast = useToast()
 
     const onSubmit = async ()  => {
         if(pin.length !== 6 || confirmPin.length !== 6) {
@@ -61,15 +61,15 @@ export default function SetWalletPin() {
         autoUpdateStorageOnStartup: true
         }
 
-        await initializeAgent({
-        agentConfig: config,
-        modules: {
-            ...getAgentModules({
-                mediatorInvitationUrl: 'https://stage-mediator.ngotag.com/invite?oob=eyJAdHlwZSI6Imh0dHBzOi8vZGlkY29tbS5vcmcvb3V0LW9mLWJhbmQvMS4xL2ludml0YXRpb24iLCJAaWQiOiJhM2Y5ZGI1My1mNGU5LTRhZjItYjk0OC0zOWMyMWRjNWE4MDAiLCJsYWJlbCI6Im5nb3RhZ19tZWRpYXRvciIsImFjY2VwdCI6WyJkaWRjb21tL2FpcDEiLCJkaWRjb21tL2FpcDI7ZW52PXJmYzE5Il0sImhhbmRzaGFrZV9wcm90b2NvbHMiOlsiaHR0cHM6Ly9kaWRjb21tLm9yZy9kaWRleGNoYW5nZS8xLjAiLCJodHRwczovL2RpZGNvbW0ub3JnL2Nvbm5lY3Rpb25zLzEuMCJdLCJzZXJ2aWNlcyI6W3siaWQiOiIjaW5saW5lLTAiLCJzZXJ2aWNlRW5kcG9pbnQiOiJodHRwczovL3N0YWdlLW1lZGlhdG9yLm5nb3RhZy5jb20iLCJ0eXBlIjoiZGlkLWNvbW11bmljYXRpb24iLCJyZWNpcGllbnRLZXlzIjpbImRpZDprZXk6ejZNa3NxM25kWXNHaGo4VEZxbUozTVFhVUY4Qm1FU28zeXRjMnZLQVg0TmdhRWY2Il0sInJvdXRpbmdLZXlzIjpbXX0seyJpZCI6IiNpbmxpbmUtMSIsInNlcnZpY2VFbmRwb2ludCI6IndzczovL3N0YWdlLW1lZGlhdG9yLm5nb3RhZy5jb20iLCJ0eXBlIjoiZGlkLWNvbW11bmljYXRpb24iLCJyZWNpcGllbnRLZXlzIjpbImRpZDprZXk6ejZNa3NxM25kWXNHaGo4VEZxbUozTVFhVUY4Qm1FU28zeXRjMnZLQVg0TmdhRWY2Il0sInJvdXRpbmdLZXlzIjpbXX1dfQ',
-                mediatorPickupStrategy: MediatorPickupStrategy.PickUpV2LiveMode
-            })
-        }
-        })
+        // await initializeAgent({
+        // agentConfig: config,
+        // modules: {
+        //     ...getAgentModules({
+        //         mediatorInvitationUrl: 'https://stage-mediator.ngotag.com/invite?oob=eyJAdHlwZSI6Imh0dHBzOi8vZGlkY29tbS5vcmcvb3V0LW9mLWJhbmQvMS4xL2ludml0YXRpb24iLCJAaWQiOiJhM2Y5ZGI1My1mNGU5LTRhZjItYjk0OC0zOWMyMWRjNWE4MDAiLCJsYWJlbCI6Im5nb3RhZ19tZWRpYXRvciIsImFjY2VwdCI6WyJkaWRjb21tL2FpcDEiLCJkaWRjb21tL2FpcDI7ZW52PXJmYzE5Il0sImhhbmRzaGFrZV9wcm90b2NvbHMiOlsiaHR0cHM6Ly9kaWRjb21tLm9yZy9kaWRleGNoYW5nZS8xLjAiLCJodHRwczovL2RpZGNvbW0ub3JnL2Nvbm5lY3Rpb25zLzEuMCJdLCJzZXJ2aWNlcyI6W3siaWQiOiIjaW5saW5lLTAiLCJzZXJ2aWNlRW5kcG9pbnQiOiJodHRwczovL3N0YWdlLW1lZGlhdG9yLm5nb3RhZy5jb20iLCJ0eXBlIjoiZGlkLWNvbW11bmljYXRpb24iLCJyZWNpcGllbnRLZXlzIjpbImRpZDprZXk6ejZNa3NxM25kWXNHaGo4VEZxbUozTVFhVUY4Qm1FU28zeXRjMnZLQVg0TmdhRWY2Il0sInJvdXRpbmdLZXlzIjpbXX0seyJpZCI6IiNpbmxpbmUtMSIsInNlcnZpY2VFbmRwb2ludCI6IndzczovL3N0YWdlLW1lZGlhdG9yLm5nb3RhZy5jb20iLCJ0eXBlIjoiZGlkLWNvbW11bmljYXRpb24iLCJyZWNpcGllbnRLZXlzIjpbImRpZDprZXk6ejZNa3NxM25kWXNHaGo4VEZxbUozTVFhVUY4Qm1FU28zeXRjMnZLQVg0TmdhRWY2Il0sInJvdXRpbmdLZXlzIjpbXX1dfQ',
+        //         mediatorPickupStrategy: MediatorPickupStrategy.PickUpV2LiveMode
+        //     })
+        // }
+        // })
         router.push('/(tabs)')
 
     }
