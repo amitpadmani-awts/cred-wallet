@@ -13,7 +13,7 @@ export default function Index() {
 
   useEffect(() => {
     if (isMounted) {
-      router.replace('/onboardingScreen');
+      router.replace('/onboardingscreen');
     }
   }, [isMounted]);
 
