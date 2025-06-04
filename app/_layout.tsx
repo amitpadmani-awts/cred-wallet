@@ -4,6 +4,7 @@ import 'react-native-get-random-values';
 import 'react-native-reanimated';
 
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import { AgentProvider } from '@/context/AgentContext';
 import "@/global.css";
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -23,10 +24,12 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider mode="light">
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Slot />
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <AgentProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Slot />
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </AgentProvider>
     </GluestackUIProvider>
   );
 }

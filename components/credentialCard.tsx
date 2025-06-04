@@ -16,9 +16,8 @@ const getRandomColor = () => {
 type CredentialCardProps = {
   credential: {
     id: string;
-    type: string;
+    name: string;
     issuer: string;
-    issueDate: string;
     issuerLogo: string;
     attributes?: { name: string; value: string }[];
   };
@@ -50,16 +49,12 @@ export default function CredentialCard({ credential }: CredentialCardProps) {
               <VStack className='flex- ml-4'>
                 <HStack className="flex justify-between items-center">
                   <Text bold size="lg">
-                    {credential.type}
+                    {credential.name}
                   </Text>
                 </HStack>
                 
                 <Text size="sm" className='text-light-600'>
                   {credential.issuer}
-                </Text>
-                
-                <Text size="xs" className='mt-1 text-gray-500'>
-                  Issued: {credential.issueDate}
                 </Text>
               </VStack>
             </HStack>

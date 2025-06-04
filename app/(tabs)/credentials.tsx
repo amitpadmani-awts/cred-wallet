@@ -1,5 +1,8 @@
 import CredentialCard from '@/components/credentialCard';
 import { Text } from '@/components/ui/text';
+import { useAgent } from '@/context/AgentContext';
+import { getAllW3cCredentialRecords } from '@credebl/ssi-mobile';
+import { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -31,6 +34,19 @@ const credentials = [
 ];
 
 export default function Credentials() {
+  const { agent } = useAgent()
+
+  const fetchAllCredentialRecord = async () => {
+    if(!agent) return
+    const records = await getAllW3cCredentialRecords(agent)
+    console.log('\n\n\n\n records length = ', records.length)
+    console.log('\n\n\n\n records = ', JSON.stringify(records, null, 2))
+  }
+
+  useEffect(()=> {
+    fetchAllCredentialRecord()
+  }, [])
+
   return (
     <SafeAreaView className='p-4 flex-1'>
       <Text size="2xl" bold className='mb-4'>My Credentials</Text>
