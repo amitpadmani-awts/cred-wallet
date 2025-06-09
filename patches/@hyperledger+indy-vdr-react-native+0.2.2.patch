@@ -1,0 +1,13 @@
+diff --git a/node_modules/@hyperledger/indy-vdr-react-native/android/build.gradle b/node_modules/@hyperledger/indy-vdr-react-native/android/build.gradle
+index 9017d77..c160fea 100644
+--- a/node_modules/@hyperledger/indy-vdr-react-native/android/build.gradle
++++ b/node_modules/@hyperledger/indy-vdr-react-native/android/build.gradle
+@@ -81,7 +81,7 @@ android {
+   }
+   
+   defaultConfig {
+-    minSdkVersion 21 
++    minSdkVersion 23 
+     targetSdkVersion getExt('targetSdkVersion')
+     
+     externalNativeBuild {

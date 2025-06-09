@@ -1,0 +1,13 @@
+diff --git a/node_modules/@hyperledger/anoncreds-react-native/android/build.gradle b/node_modules/@hyperledger/anoncreds-react-native/android/build.gradle
+index a38cf8a..df67e77 100644
+--- a/node_modules/@hyperledger/anoncreds-react-native/android/build.gradle
++++ b/node_modules/@hyperledger/anoncreds-react-native/android/build.gradle
+@@ -81,7 +81,7 @@ android {
+   }
+   
+   defaultConfig {
+-    minSdkVersion 21 
++    minSdkVersion 23 
+     targetSdkVersion getExt('targetSdkVersion')
+     
+     externalNativeBuild {
