@@ -1,7 +1,7 @@
 // components/CredentialCard.tsx
 import clsx from 'clsx';
 import { Link } from 'expo-router';
-import { Image, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import { Box } from './ui/box';
 import { HStack } from './ui/hstack';
 import { Text } from './ui/text';
@@ -13,12 +13,11 @@ const getRandomColor = () => {
   return `hsl(${hue}, 80%, 90%)`;
 };
 
-type CredentialCardProps = {
+export type CredentialCardProps = {
   credential: {
     id: string;
     name: string;
     issuer: string;
-    issuerLogo: string;
     attributes?: { name: string; value: string }[];
   };
 };
@@ -42,9 +41,6 @@ export default function CredentialCard({ credential }: CredentialCardProps) {
                 }}
           >
             <HStack className="flex items-center space-x-4">
-              <Box className="bg-white p-2 rounded-full border border-gray-300">
-                <Image src={credential.issuerLogo} className="w-24 h-24 rounded-full object-cover" />
-              </Box>
               
               <VStack className='flex- ml-4'>
                 <HStack className="flex justify-between items-center">
