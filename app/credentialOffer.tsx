@@ -7,10 +7,14 @@ import { VStack } from "@/components/ui/vstack"
 import { useAgent } from "@/context/AgentContext"
 import {
   acceptCredentialOffer,
+  AutoAcceptCredential,
   type ConnectionRecord,
   declineCredentialOffer,
+  DidRecord,
+  DidRepository,
   getConnectionById,
   getFormattedCredentialData,
+  KeyType,
 } from "@credebl/ssi-mobile"
 import { router, useLocalSearchParams } from "expo-router"
 import { useEffect, useState } from "react"
@@ -55,17 +59,83 @@ export default function CredentialOfferScreen() {
     }
   }, [id, connectionId, agent])
 
+  const getDefaultHolderDidDocument = async () => {
+  try {
+    if(!agent) return
+    
+    let defaultDidRecord: DidRecord | null
+    const didRepository = await agent.dependencyManager.resolve(DidRepository)
+
+    defaultDidRecord = await didRepository.findSingleByQuery(agent.context, {
+      isDefault: true,
+    })
+
+    if (!defaultDidRecord) {
+      const did = await agent.dids.create({
+        method: 'key',
+        options: {
+          keyType: KeyType.Ed25519,
+        },
+      })
+
+      const [didRecord] = await agent.dids.getCreatedDids({
+        did: did.didState.did,
+        method: 'key',
+      })
+
+      didRecord.setTag('isDefault', true)
+
+      await didRepository.update(agent.context, didRecord)
+      defaultDidRecord = didRecord
+    }
+
+    const resolvedDidDocument = await agent.dids.resolveDidDocument(defaultDidRecord.did)
+
+    return resolvedDidDocument
+  } catch (error) {
+    console.log('Error did create', error)
+  }
+}
+
   const handleAcceptCredential = async () => {
     if (!agent || !id) return
-
+    const credentialFormatData = await getFormattedCredentialData(agent, id as string)
     try {
-      await acceptCredentialOffer(agent, {
-        credentialRecordId: id as string,
-      })
-      router.back()
+      // Added holder did as id if did is not present and negotiate offer
+      if (
+        !credentialFormatData?.offer?.jsonld?.credential?.credentialSubject?.id &&
+        credentialFormatData?.offer?.jsonld
+      ) {
+        const holderDid = await getDefaultHolderDidDocument()
+        await agent.credentials.negotiateOffer({
+          credentialFormats: {
+            jsonld: {
+              credential: {
+                ...credentialFormatData?.offer?.jsonld?.credential,
+                credentialSubject: {
+                  ...credentialFormatData?.offer?.jsonld?.credential?.credentialSubject,
+                  // Added holder did as id if did is not present
+                  id: holderDid?.id,
+                },
+              },
+              options: {
+                ...credentialFormatData?.offer?.jsonld?.options,
+              },
+            },
+          },
+          credentialRecordId: id as string,
+          // we added auto accept credential to always accept the credential further flows
+          autoAcceptCredential: AutoAcceptCredential.Always,
+        })
+      } else {
+        await acceptCredentialOffer(agent, {
+          credentialRecordId: id as string,
+        })
+      }
     } catch (error) {
       console.error("Error accepting credential:", error)
     }
+    router.back()
   }
 
   const handleRejectCredential = async () => {
@@ -90,9 +160,6 @@ export default function CredentialOfferScreen() {
             id: (id as string) || "",
             name: credentialName || "Credential",
             issuer: connectionRecord?.theirLabel || "Agent",
-            issuerLogo:
-              connectionRecord?.imageUrl ||
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2zadAjQy_kg7ALX5Z86oxMhhOAhiiMPKzFA&s",
           }}
         />
 

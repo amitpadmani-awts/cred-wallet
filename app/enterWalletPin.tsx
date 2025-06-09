@@ -34,6 +34,7 @@ export default function EnterWalletPinScreen() {
 
         try {
             await initAgent(pin)
+            router.push('/(tabs)')
         } catch (error) {
             console.error('\n\n\n error init agent ', error)
             toast.show({
@@ -52,9 +53,6 @@ export default function EnterWalletPinScreen() {
                 },
             })
         }
-
-        router.push('/(tabs)')
-
     }
 
     return (

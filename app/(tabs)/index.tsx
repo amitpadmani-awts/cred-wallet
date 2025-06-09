@@ -1,4 +1,3 @@
-import { Button, ButtonText } from '@/components/ui/button';
 import { Fab, FabLabel } from '@/components/ui/fab';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
@@ -8,12 +7,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className='p-4 flex-1'>
       <Text size="2xl" bold className='mb-4'>Welcome,</Text><VStack space="md">
-          <Button onPress={()=> router.push('/credentialOffer')}>
-            <ButtonText>View Credential Offer</ButtonText>
-          </Button>
-          <Button onPress={()=> router.push('/proofRequest')}>
-            <ButtonText>View Proof Request</ButtonText>
-          </Button>
       </VStack>
       <Fab
         onPress={()=> router.push('/scannerscreen')}

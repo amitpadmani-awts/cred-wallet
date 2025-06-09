@@ -44,8 +44,7 @@ export const AgentProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const handleCredentialStateChange = async(events: CredentialStateChangedEvent) => {
-        console.log('CREDETIAL CHANGE EVENT = ', JSON.stringify(events))
-        if(events.payload.credentialRecord.state === CredentialState.OfferReceived) {
+        if(events.payload.credentialRecord.state === CredentialState.OfferReceived && events.payload.previousState === null) {
             router.push({pathname: '/credentialOffer', params: {
                 id: events.payload.credentialRecord.id,
                 connectionId: events.payload.credentialRecord.connectionId

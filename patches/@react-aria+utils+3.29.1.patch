@@ -1,0 +1,17 @@
+diff --git a/node_modules/@react-aria/utils/dist/runAfterTransition.main.js b/node_modules/@react-aria/utils/dist/runAfterTransition.main.js
+index a4c107a..20d5eb0 100644
+--- a/node_modules/@react-aria/utils/dist/runAfterTransition.main.js
++++ b/node_modules/@react-aria/utils/dist/runAfterTransition.main.js
+@@ -61,8 +61,10 @@ function $e8117ebcab55be6a$var$setupGlobalEvents() {
+             $e8117ebcab55be6a$var$transitionCallbacks.clear();
+         }
+     };
+-    document.body.addEventListener('transitionrun', onTransitionStart);
+-    document.body.addEventListener('transitionend', onTransitionEnd);
++    if(document.body) {
++        document.body.addEventListener('transitionrun', onTransitionStart);
++        document.body.addEventListener('transitionend', onTransitionEnd);
++    }
+ }
+ if (typeof document !== 'undefined') {
+     if (document.readyState !== 'loading') $e8117ebcab55be6a$var$setupGlobalEvents();

@@ -2,7 +2,8 @@ import CredentialCard from "@/components/credentialCard"
 import { Text } from "@/components/ui/text"
 import { useAgent } from "@/context/AgentContext"
 import { getAllCredentialExchangeRecords, getAllW3cCredentialRecords, getConnectionById } from "@credebl/ssi-mobile"
-import { useEffect, useState } from "react"
+import { useFocusEffect } from "expo-router"
+import { useCallback, useState } from "react"
 import { FlatList } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -22,16 +23,18 @@ export default function Credentials() {
         return
       }
 
-      const credentialExchangeRecord = await getAllCredentialExchangeRecords(agent)
+      const credentialExchangeRecords = await getAllCredentialExchangeRecords(agent);
       const displayRecord = []
 
       for (const record of records) {
         try {
-          console.log("record id = ", record?.id)
+          if (!record?.id || !credentialExchangeRecords) continue
 
-          if (!record?.id || !credentialExchangeRecord) continue
-
-          const matchedRecord = credentialExchangeRecord.find((data) => data?.credentials?.[0]?.id === record?.id)
+          const matchedRecord = credentialExchangeRecords.find(
+            (data) =>
+              Array.isArray(data.credentials) &&
+              data.credentials.some((cred) => cred.credentialRecordId === record?.id)
+          )
 
           if (!matchedRecord?.connectionId) continue
 
@@ -43,14 +46,12 @@ export default function Credentials() {
             issuer: connectionRecord?.theirLabel || "Unknown Agent",
           }
           displayRecord.push(payload)
-          console.log("payload = ", JSON.stringify(payload, null, 2))
         } catch (recordError) {
           console.log("Error processing record:", recordError)
           continue
         }
       }
 
-      console.log("displayRecord = ", JSON.stringify(displayRecord, null, 2))
       setDisplayCredentialRecord(displayRecord)
     } catch (error) {
       console.log("ERROR = ", error)
@@ -58,9 +59,11 @@ export default function Credentials() {
     }
   }
 
-  useEffect(() => {
-    fetchAllCredentialRecord()
-  }, [agent])
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllCredentialRecord()
+    }, [agent])
+  )
 
   return (
     <SafeAreaView className="p-4 flex-1">
