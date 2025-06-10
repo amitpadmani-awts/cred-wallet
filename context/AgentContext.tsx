@@ -1,5 +1,5 @@
 
-import { Agent, ConsoleLogger, CredentialEventTypes, CredentialState, CredentialStateChangedEvent, getAgentModules, InitConfig, initializeAgent, LogLevel, MediatorPickupStrategy } from '@credebl/ssi-mobile';
+import { Agent, ConsoleLogger, CredentialEventTypes, CredentialState, CredentialStateChangedEvent, getAgentModules, InitConfig, initializeAgent, LogLevel, MediatorPickupStrategy, ProofEventTypes, ProofState, ProofStateChangedEvent } from '@credebl/ssi-mobile';
 import { router } from 'expo-router';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
@@ -52,9 +52,19 @@ export const AgentProvider = ({ children }: { children: ReactNode }) => {
         }
     }
 
+    const handleProofStateChange = async(events: ProofStateChangedEvent) => {
+        if(events.payload.proofRecord.state === ProofState.RequestReceived) {
+            router.push({ pathname: '/proofRequest', params: {
+                id: events.payload.proofRecord.id,
+                connectionId: events.payload.proofRecord.connectionId
+            }})
+        }
+    }
+
     useEffect(() => {
         if(agent) {
             agent.events.observable<CredentialStateChangedEvent>(CredentialEventTypes.CredentialStateChanged).subscribe(handleCredentialStateChange)
+            agent.events.observable<ProofStateChangedEvent>(ProofEventTypes.ProofStateChanged).subscribe(handleProofStateChange)
         }
     }, [agent])
 
